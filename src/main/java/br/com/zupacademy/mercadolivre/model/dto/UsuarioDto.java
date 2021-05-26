@@ -26,4 +26,9 @@ public class UsuarioDto {
     public Usuario toModel(){
         return new Usuario(this.login, this.senha);
     }
+
+    public String getLogin() {
+        return this.login;
+    }
+
 }
