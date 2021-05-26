@@ -11,6 +11,8 @@ import javax.validation.Validator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -22,7 +24,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   
+    @PastOrPresent
     private LocalDate data = LocalDate.now();
 
     @NotBlank
