@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import br.com.zupacademy.mercadolivre.model.Usuario;
 
@@ -29,6 +30,10 @@ public class UsuarioDto {
 
     public String getLogin() {
         return this.login;
+    }
+
+    public UsernamePasswordAuthenticationToken converter() {
+        return new UsernamePasswordAuthenticationToken(this.login, this.senha);
     }
 
 }

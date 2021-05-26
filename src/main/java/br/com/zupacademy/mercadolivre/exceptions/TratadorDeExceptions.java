@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,6 +24,14 @@ public class TratadorDeExceptions {
         for(FieldError x : e.getBindingResult().getFieldErrors()){
             erros.adicionandoErro(x.getField(), x.getDefaultMessage());
         }
+
+        //Pega os erros globais, exceptions das anotações
+        for(ObjectError x : e.getBindingResult().getGlobalErrors()){
+            erros.adicionandoErro(x.getDefaultMessage(),x.getObjectName());
+        }
+
+       
+        
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erros);
     }
 }

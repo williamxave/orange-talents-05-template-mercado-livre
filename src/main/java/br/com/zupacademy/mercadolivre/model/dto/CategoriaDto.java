@@ -1,6 +1,11 @@
 package br.com.zupacademy.mercadolivre.model.dto;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import br.com.zupacademy.mercadolivre.model.Categoria;
 import br.com.zupacademy.mercadolivre.repositories.CategoriaRepository;
@@ -16,11 +21,8 @@ public class CategoriaDto {
     @IdExistente(domainClass = Categoria.class, fieldName = "id")
     public Long idCategoriaMae;
 
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
+    @JsonCreator(mode = Mode.PROPERTIES)
+    public CategoriaDto(String nome) {
         this.nome = nome;
     }
 
@@ -28,16 +30,13 @@ public class CategoriaDto {
         return this.idCategoriaMae;
     }
 
-    public void setIdCategoriaMae(Long idCategoriaMae) {
-        this.idCategoriaMae = idCategoriaMae;
-    }
-
     public Categoria toModel(CategoriaRepository categoriaRepository){
-        if (this.getIdCategoriaMae() != null){
-           Categoria categoriaMae = categoriaRepository.findById(this.getIdCategoriaMae()).get();
-           return new Categoria(this.nome, categoriaMae);
-        }   
+        if(this.idCategoriaMae != null){
+           Optional<Categoria> categoriaMae = categoriaRepository.findById(this.getIdCategoriaMae());
+           if(categoriaMae.isPresent()){
+                return new Categoria(this.nome, categoriaMae.get());
+           }
+        }
         return new Categoria(this.nome);
     }
- 
 }
