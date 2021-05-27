@@ -1,5 +1,4 @@
 package br.com.zupacademy.mercadolivre.model.dto;
-
 public class TokenDto {
 
     private String token;

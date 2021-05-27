@@ -1,11 +1,15 @@
 package br.com.zupacademy.mercadolivre.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -19,9 +23,11 @@ public class Categoria {
     @Column(unique = true)
     private String nome;
 
+    @OneToMany(mappedBy = "categoria")
+    private List<Produto> produtos = new ArrayList<>();
+
     @ManyToOne
     private Categoria categoriaMae;
-
 
     @Deprecated
     public Categoria() {
@@ -35,5 +41,13 @@ public class Categoria {
         this.nome = nome;
         this.categoriaMae = categoriaMae;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+
+
     
+
 }
