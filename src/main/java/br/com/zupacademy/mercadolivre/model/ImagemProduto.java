@@ -12,51 +12,48 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.URL;
+
 @Entity
-public class Caracteristica {
+public class ImagemProduto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String nome;
-
-    @NotBlank
-    private String descricao;
-
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    private Produto produtos;
+    @NotNull
+    @Valid
+    private Produto produto;
 
     @Deprecated
-    public Caracteristica() {
-    }
-    
-    public Caracteristica(@NotBlank String nome,@NotBlank String descricao,@NotNull @Valid Produto produtos) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.produtos = produtos;
+    public ImagemProduto(){
     }
 
+    @URL
+    @NotBlank
+    private String link;
 
+    public ImagemProduto(@NotNull @Valid Produto produto,@NotBlank @URL String link) {
+        this.produto = produto;
+        this.link = link;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Caracteristica)) {
+        if (!(o instanceof ImagemProduto)) {
             return false;
         }
-        Caracteristica caracteristica = (Caracteristica) o;
-        return Objects.equals(id, caracteristica.id) && Objects.equals(nome, caracteristica.nome) && Objects.equals(produtos, caracteristica.produtos);
+        ImagemProduto imagemProduto = (ImagemProduto) o;
+        return  Objects.equals(produto, imagemProduto.produto) && Objects.equals(link, imagemProduto.link);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome);
+        return Objects.hash(produto, link);
     }
-    
-  
+
 }

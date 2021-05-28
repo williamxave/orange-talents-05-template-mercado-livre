@@ -46,8 +46,8 @@ public class Usuario implements UserDetails{
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis =  new ArrayList<>();
     
+    @Deprecated
     public Usuario(){
-
     }
 
     public Usuario(@NotBlank @Email String login, @NotBlank @Length(min = 6) String senha) {

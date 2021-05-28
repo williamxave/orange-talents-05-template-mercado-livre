@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import br.com.zupacademy.mercadolivre.model.dto.ProdutoDto;
 
 @Component
-public class naoPermiteCadastrarNomeDeCaracteristicasIguaisValidator implements Validator{
+public class NaoPermiteCadastrarNomeDeCaracteristicasIguaisValidator implements Validator{
 
     @Override
     public boolean supports(Class<?> clazz) {

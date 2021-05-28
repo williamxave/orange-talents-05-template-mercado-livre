@@ -2,10 +2,11 @@ package br.com.zupacademy.mercadolivre.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.zupacademy.mercadolivre.model.dto.CaracteristicaDto;
-
 @Entity
 public class Produto {
 
@@ -45,7 +45,6 @@ public class Produto {
     @NotNull
     @Min(value = 0)
     private Integer qtdDisponivel;
-
 
     @NotBlank
     @Length(max = 1000)
@@ -67,6 +66,9 @@ public class Produto {
     @OneToMany(mappedBy = "produtos", cascade = CascadeType.PERSIST)
     private Set<Caracteristica> caracteristica =  new HashSet<>();
 
+    //Merge quando atualizar um produto vai atualizar as imagens junto
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private List<ImagemProduto> imagensUrls = new ArrayList<>();
    
     @PastOrPresent
     private LocalDate data = LocalDate.now();
@@ -86,4 +88,25 @@ public class Produto {
         this.anunciante = anunciante;
         this.caracteristica.addAll(caracteristicas.stream().map(caracteristica -> caracteristica.toModel(this)).collect(Collectors.toSet()));
     }
+
+    public void associaImagemAoProduto(List<String> links){
+         List<ImagemProduto> imagemProdutos =  links.stream()
+                                .map(link -> new ImagemProduto(this,link))
+                                .collect(Collectors.toList());
+            this.imagensUrls.addAll(imagemProdutos);
+    }
+
+    //Méttodo auxiliar para verificar se o usuário que quer adicionar uma imagem ao produto é o dono da imagem
+    public boolean perteceAoUsuarioLogado(Long supostoDonoDaImagem){
+        return this.anunciante.getId() == supostoDonoDaImagem;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Usuario getAnunciante() {
+        return this.anunciante;
+    }
+
 }
