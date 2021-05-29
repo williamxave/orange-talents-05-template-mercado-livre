@@ -40,8 +40,6 @@ public class Caracteristica {
         this.produtos = produtos;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (o == this)

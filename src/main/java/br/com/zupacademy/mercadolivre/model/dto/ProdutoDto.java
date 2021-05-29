@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -15,14 +15,13 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import br.com.zupacademy.mercadolivre.model.Categoria;
 import br.com.zupacademy.mercadolivre.model.Produto;
 import br.com.zupacademy.mercadolivre.model.Usuario;
 import br.com.zupacademy.mercadolivre.repositories.CategoriaRepository;
-import br.com.zupacademy.mercadolivre.repositories.UsuarioRepository;
+
 import br.com.zupacademy.mercadolivre.validators.IdExistente;
 
 public class ProdutoDto {
