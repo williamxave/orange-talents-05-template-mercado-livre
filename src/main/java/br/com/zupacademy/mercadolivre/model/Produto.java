@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -69,7 +71,13 @@ public class Produto {
     //Merge quando atualizar um produto vai atualizar as imagens junto
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagensUrls = new ArrayList<>();
-   
+
+    @OneToMany(mappedBy = "produto")
+    private List<Opiniao> opinioes =  new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto")
+    private List<Pergunta> perguntas =  new ArrayList<>();
+
     @PastOrPresent
     private LocalDate data = LocalDate.now();
 
@@ -101,6 +109,18 @@ public class Produto {
         return this.anunciante.getId() == supostoDonoDaImagem;
     }
 
+
+    public BigDecimal getPegarAMediaDasNotas() {
+        List<Integer> notas = this.opinioes.stream().map(opini -> opini.getNota()).collect(Collectors.toList());
+        Integer totalDeNotas = notas.stream().reduce(0, (subtotal, element) -> subtotal + element);
+        return BigDecimal.valueOf(totalDeNotas).divide(BigDecimal.valueOf(getTotalDeOpinioes()));
+    }
+
+    public Integer getTotalDeOpinioes() {
+        return this.opinioes.size();
+    }
+
+
     public Long getId() {
         return this.id;
     }
@@ -109,6 +129,9 @@ public class Produto {
         return this.anunciante;
     }
 
+    public List<Opiniao> getOpinioes() {
+        return this.opinioes;
+    }
 
     public String getNome() {
         return this.nome;
@@ -138,11 +161,14 @@ public class Produto {
         return this.imagensUrls;
     }
 
+
+    public List<Pergunta> getPerguntas() {
+        return this.perguntas;
+    }
+
     public LocalDate getData() {
         return this.data;
     }
-
-
 
     @Override
     public String toString() {
@@ -152,5 +178,26 @@ public class Produto {
             ", anunciante='" + getAnunciante() + "'" +
             "}";
     }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Produto)) {
+            return false;
+        }
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome)  && Objects.equals(anunciante, produto.anunciante);
+    }
+    
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome);
+    }
+
+    
 
 }

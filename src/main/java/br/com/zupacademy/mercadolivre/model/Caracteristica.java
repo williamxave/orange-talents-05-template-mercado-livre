@@ -55,6 +55,17 @@ public class Caracteristica {
     public int hashCode() {
         return Objects.hash(id, nome);
     }
+
+
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
+
     
   
 }

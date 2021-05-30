@@ -56,4 +56,12 @@ public class ImagemProduto {
         return Objects.hash(produto, link);
     }
 
+
+
+    public String getLink() {
+        return this.link;
+    }
+
+
+
 }

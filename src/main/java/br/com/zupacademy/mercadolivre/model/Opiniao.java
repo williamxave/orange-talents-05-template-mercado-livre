@@ -49,5 +49,23 @@ public class Opiniao {
 
     public Opiniao(){
     }
+
+
+    public Integer getNota() {
+        return this.nota;
+    }
+
+    public String getTitulo() {
+        return this.titulo;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
     
 }
