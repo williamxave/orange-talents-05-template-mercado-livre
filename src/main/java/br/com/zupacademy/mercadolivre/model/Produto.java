@@ -109,4 +109,48 @@ public class Produto {
         return this.anunciante;
     }
 
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public BigDecimal getValor() {
+        return this.valor;
+    }
+
+    public Integer getQtdDisponivel() {
+        return this.qtdDisponivel;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
+
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+
+    public Set<Caracteristica> getCaracteristica() {
+        return this.caracteristica;
+    }
+
+    public List<ImagemProduto> getImagensUrls() {
+        return this.imagensUrls;
+    }
+
+    public LocalDate getData() {
+        return this.data;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", nome='" + getNome() + "'" +
+            ", anunciante='" + getAnunciante() + "'" +
+            "}";
+    }
+
 }

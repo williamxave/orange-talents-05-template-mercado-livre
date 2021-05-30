@@ -102,4 +102,25 @@ public class Usuario implements UserDetails{
     public boolean isEnabled() {
         return true;
     } 
+
+    public LocalDate getData() {
+        return this.data;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            ", login='" + getLogin() + "'" +
+            "}";
+    }
+
+
 }
