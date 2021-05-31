@@ -22,6 +22,9 @@ public class PaginaDeDetalheController {
     public ResponseEntity<ProdutoResposta> buscaDadosProdutoPagina(@PathVariable(value = "id") Long idProduto){
        Produto produto =  produtoRepository.findById(idProduto).get();
 
+       if(produto == null){
+           return ResponseEntity.notFound().build();
+       }
        return  ResponseEntity.ok().body(new ProdutoResposta(produto));
     }
 }

@@ -120,7 +120,19 @@ public class Produto {
         return this.opinioes.size();
     }
 
+    public boolean verificaSeTemProdutoNoEstoque(Integer quantidadeASerComprada){
+        return this.qtdDisponivel >= quantidadeASerComprada;
+    }
 
+    public boolean diminiuEstoque(Integer quantidadeASerComprada){
+        if(verificaSeTemProdutoNoEstoque(quantidadeASerComprada)){
+            this.qtdDisponivel -= quantidadeASerComprada;
+            return true;
+        }
+        return false;
+    }
+
+   
     public Long getId() {
         return this.id;
     }
@@ -169,12 +181,14 @@ public class Produto {
     public LocalDate getData() {
         return this.data;
     }
+   
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
             ", nome='" + getNome() + "'" +
+            ", valor='" +getValor() + "'" +
             ", anunciante='" + getAnunciante() + "'" +
             "}";
     }

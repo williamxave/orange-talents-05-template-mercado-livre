@@ -14,4 +14,5 @@ public class MockEmailEnviandoEmailFalso extends PreparadorDeEmail{
         LOG.info(mensagem.toString());
         LOG.info("Email enviado!");
     }
+
 }

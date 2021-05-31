@@ -12,6 +12,12 @@ public abstract class PreparadorDeEmail implements EnviadorDeEmailPrincipal{
         eviarOEmail(sm);
     }
 
+    @Override
+    public void confirmandoEmailParaCompra(Compra compra, Usuario usuariologadoCompra) {
+        SimpleMailMessage sm = preparandoOEmailParaMandarACompra(compra, usuariologadoCompra);
+        eviarOEmail(sm);
+    }
+
     protected SimpleMailMessage preparandoOEmailParaMandarAPergunta(Pergunta pergunta, Usuario usuarioLogado){
         SimpleMailMessage preparandoOEmail = new SimpleMailMessage();
         preparandoOEmail.setTo(pergunta.getUsuario().getLogin());
@@ -20,5 +26,15 @@ public abstract class PreparadorDeEmail implements EnviadorDeEmailPrincipal{
         preparandoOEmail.setSentDate(new Date(System.currentTimeMillis()));
         preparandoOEmail.setText(pergunta.toString());
         return preparandoOEmail;
+    } 
+
+    protected SimpleMailMessage preparandoOEmailParaMandarACompra(Compra compra, Usuario usuarioLogado){
+        SimpleMailMessage preparandoCompra = new SimpleMailMessage();
+        preparandoCompra.setTo(compra.getComprador().getLogin());
+        preparandoCompra.setFrom(usuarioLogado.getLogin());
+        preparandoCompra.setSubject("Compra enviada! Código da compra: " +compra.getCodigoDaCompra());
+        preparandoCompra.setSentDate(new Date(System.currentTimeMillis()));
+        preparandoCompra.setText(compra.toString());
+        return preparandoCompra;
     } 
 }

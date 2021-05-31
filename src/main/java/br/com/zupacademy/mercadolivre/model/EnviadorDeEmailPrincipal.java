@@ -6,5 +6,7 @@ public interface EnviadorDeEmailPrincipal {
 
     void confirmandoEmail(Pergunta pergunta,Usuario usuariologado);
 
+    void confirmandoEmailParaCompra(Compra compra, Usuario usuarilogado);
+
     void eviarOEmail(SimpleMailMessage mensagem);
 }
